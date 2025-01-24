@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Signature Form</title>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+</head>
+<body>
+    <form id="myForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name"><br><br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email"><br><br>
+        <canvas id="signature-pad" width="400" height="200" style="border:1px solid #000000;"></canvas><br><br>
+        <button type="button" onclick="clearSignature()">Clear</button>
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        var canvas = document.getElementById('signature-pad');
+        var signaturePad = new SignaturePad(canvas);
+
+        function clearSignature() {
+            signaturePad.clear();
+        }
+
+        document.getElementById('myForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var data = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                signature: signaturePad.toDataURL()
+            };
+            console.log(data);
+            // You can send 'data' to your server here
+        });
+    </script>
+</body>
+</html>
